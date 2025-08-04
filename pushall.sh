@@ -1,7 +1,12 @@
 #!/bin/bash
+
+# Dosyaları sahnele
 git add .
-git commit -m "Update site"
-git push
 
-
-# komut icin ./pushall.sh
+# Değişiklik varsa commit et
+if ! git diff --cached --quiet; then
+  git commit -m "Update site"
+  git push
+else
+  echo "No changes to commit."
+fi
