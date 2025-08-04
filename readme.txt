@@ -1,0 +1,1 @@
+python generate_all.py "link" nvx-2025-xx "x"
