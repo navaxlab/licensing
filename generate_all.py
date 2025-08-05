@@ -117,6 +117,26 @@ def generate_html(metadata, nvx_code, species):
         f.write(html_content)
     print(f"✔ HTML generated and saved as: {nvx_code}.html")
 
+    # Index'e otomatik ekleme
+    index_path = "index.html"
+    index_entry = f"<li><a href='{nvx_code}.html'>{nvx_code} - {species}</a></li>\n"
+
+    if os.path.exists(index_path):
+        with open(index_path, "r", encoding="utf-8") as index_file:
+            content = index_file.read()
+
+        if "</ul>" in content:
+            content = content.replace("</ul>", index_entry + "</ul>")
+        else:
+            content += f"<ul>{index_entry}</ul>"
+    else:
+        content = f"<html><body><ul>{index_entry}</ul></body></html>"
+
+    with open(index_path, "w", encoding="utf-8") as index_file:
+        index_file.write(content)
+
+    print(f"✔ Index updated with: {nvx_code} - {species}")
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: <url> <nvx_code>")
